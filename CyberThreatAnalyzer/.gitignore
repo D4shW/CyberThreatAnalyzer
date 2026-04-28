@@ -1,0 +1,9 @@
+# Fichiers de configuration générés localement
+config.json
+options.json
+history.json
+appsettings.json
+
+# Dossiers standards .NET
+bin/
+obj/
