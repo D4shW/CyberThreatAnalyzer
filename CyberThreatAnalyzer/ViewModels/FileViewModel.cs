@@ -2,8 +2,6 @@ using System;
 using System.Threading.Tasks;
 using CyberThreatAnalyzer.Models;
 using CyberThreatAnalyzer.Services;
-// Assurez-vous d'avoir le bon namespace pour ObservableObject et RelayCommand
-// using CyberThreatAnalyzer.ViewModels.Base; 
 
 namespace CyberThreatAnalyzer.ViewModels
 {
@@ -36,7 +34,6 @@ namespace CyberThreatAnalyzer.ViewModels
 
         public FileViewModel()
         {
-            // Instanciation sécurisée pour ne pas crasher le designer WPF
             try
             {
                 _vtService = new VirusTotalService();
@@ -63,9 +60,9 @@ namespace CyberThreatAnalyzer.ViewModels
 
             try
             {
-                // Appel au vrai service VirusTotal
-                // Result = await _vtService.GetFileReportAsync(InputHash!); 
-                _historyService.AddEntry(new HistoryEntry { Type = "FILE", Target = InputHash!, Timestamp = DateTime.Now });
+                string cleanHash = InputHash!.Trim().ToLower();
+                Result = await _vtService.GetFileReportAsync(cleanHash); 
+                _historyService.AddEntry(new HistoryEntry { Type = "HASH", Target = cleanHash, Timestamp = DateTime.Now });
             }
             catch (Exception ex)
             {
